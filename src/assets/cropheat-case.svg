@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">CropHeat AI system preview</title>
+  <desc id="desc">Abstract heat-risk map visualization for CropHeat AI</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071019"/>
+      <stop offset="1" stop-color="#0c1324"/>
+    </linearGradient>
+    <radialGradient id="heat1"><stop offset="0" stop-color="#ff7a45" stop-opacity=".95"/><stop offset="1" stop-color="#ff7a45" stop-opacity="0"/></radialGradient>
+    <radialGradient id="heat2"><stop offset="0" stop-color="#ffd166" stop-opacity=".85"/><stop offset="1" stop-color="#ffd166" stop-opacity="0"/></radialGradient>
+    <radialGradient id="heat3"><stop offset="0" stop-color="#ef476f" stop-opacity=".85"/><stop offset="1" stop-color="#ef476f" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0H0V50" fill="none" stroke="#fff" stroke-opacity=".06"/></pattern>
+    <filter id="glow"><feGaussianBlur stdDeviation="22"/></filter>
+  </defs>
+  <rect width="1600" height="1000" rx="44" fill="url(#bg)"/>
+  <rect x="70" y="70" width="1460" height="860" rx="30" fill="#fff" fill-opacity=".025" stroke="#fff" stroke-opacity=".1"/>
+  <rect x="100" y="100" width="1400" height="800" rx="22" fill="url(#grid)"/>
+  <g filter="url(#glow)">
+    <circle cx="470" cy="470" r="300" fill="url(#heat1)"/>
+    <circle cx="1040" cy="380" r="260" fill="url(#heat2)"/>
+    <circle cx="1180" cy="680" r="300" fill="url(#heat3)"/>
+  </g>
+  <g fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="2">
+    <path d="M180 720C370 590 420 260 680 250S1010 520 1410 210"/>
+    <path d="M130 820C390 720 570 470 760 500s370 220 680 70"/>
+    <path d="M220 260C450 370 570 180 820 300s360 150 550 80"/>
+  </g>
+  <g fill="#fff">
+    <circle cx="470" cy="470" r="7"/><circle cx="1040" cy="380" r="7"/><circle cx="1180" cy="680" r="7"/>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace">
+    <text x="145" y="165" fill="#fff" fill-opacity=".9" font-size="34" letter-spacing="7">CROPHEAT AI</text>
+    <text x="145" y="205" fill="#fff" fill-opacity=".45" font-size="16" letter-spacing="4">FORTYGUARD · HEAT-RISK INTELLIGENCE</text>
+    <rect x="1150" y="140" width="285" height="62" rx="31" fill="#fff" fill-opacity=".06" stroke="#fff" stroke-opacity=".12"/>
+    <circle cx="1185" cy="171" r="6" fill="#ff7a45"/><text x="1205" y="178" fill="#fff" fill-opacity=".72" font-size="15" letter-spacing="2">LIVE HEATMAP</text>
+    <text x="145" y="830" fill="#fff" fill-opacity=".55" font-size="14" letter-spacing="3">EXPLAINABLE RISK ENGINE</text>
+    <text x="145" y="865" fill="#fff" fill-opacity=".9" font-size="27">Temperature · Exposure · Persistence · Crop · Stage</text>
+  </g>
+</svg>

@@ -1,0 +1,660 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-glow-blue: var(--glow-blue);
+  --color-glow-purple: var(--glow-purple);
+  --color-glow-cyan: var(--glow-cyan);
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+:root {
+  --radius: 0.75rem;
+  /* Deep near-black with faint blue */
+  --background: oklch(0.14 0.02 265);
+  --foreground: oklch(0.98 0.005 250);
+  --card: oklch(0.18 0.02 265 / 0.5);
+  --card-foreground: oklch(0.98 0.005 250);
+  --popover: oklch(0.18 0.02 265);
+  --popover-foreground: oklch(0.98 0.005 250);
+  --primary: oklch(0.72 0.19 265);
+  --primary-foreground: oklch(0.12 0.02 265);
+  --secondary: oklch(0.22 0.03 265);
+  --secondary-foreground: oklch(0.98 0.005 250);
+  --muted: oklch(0.22 0.03 265);
+  --muted-foreground: oklch(0.65 0.02 260);
+  --accent: oklch(0.65 0.22 300);
+  --accent-foreground: oklch(0.98 0.005 250);
+  --destructive: oklch(0.65 0.24 25);
+  --destructive-foreground: oklch(0.98 0.005 250);
+  --border: oklch(1 0 0 / 0.08);
+  --input: oklch(1 0 0 / 0.1);
+  --ring: oklch(0.72 0.19 265);
+  --chart-1: oklch(0.72 0.19 265);
+  --chart-2: oklch(0.65 0.22 300);
+  --chart-3: oklch(0.78 0.15 220);
+  --chart-4: oklch(0.6 0.2 330);
+  --chart-5: oklch(0.8 0.14 200);
+  --sidebar: oklch(0.16 0.02 265);
+  --sidebar-foreground: oklch(0.98 0.005 250);
+  --sidebar-primary: oklch(0.72 0.19 265);
+  --sidebar-primary-foreground: oklch(0.12 0.02 265);
+  --sidebar-accent: oklch(0.22 0.03 265);
+  --sidebar-accent-foreground: oklch(0.98 0.005 250);
+  --sidebar-border: oklch(1 0 0 / 0.08);
+  --sidebar-ring: oklch(0.72 0.19 265);
+
+  --glow-blue: oklch(0.7 0.2 260);
+  --glow-purple: oklch(0.62 0.24 305);
+  --glow-cyan: oklch(0.82 0.14 210);
+
+  --gradient-aurora:
+    radial-gradient(60% 60% at 20% 20%, oklch(0.7 0.2 260 / 0.25), transparent 60%),
+    radial-gradient(50% 50% at 80% 30%, oklch(0.62 0.24 305 / 0.22), transparent 65%),
+    radial-gradient(70% 60% at 50% 100%, oklch(0.82 0.14 210 / 0.15), transparent 70%);
+  --shadow-glow-blue: 0 0 40px oklch(0.7 0.2 260 / 0.35), 0 0 120px oklch(0.7 0.2 260 / 0.18);
+  --shadow-glow-purple: 0 0 40px oklch(0.62 0.24 305 / 0.35), 0 0 120px oklch(0.62 0.24 305 / 0.18);
+  --shadow-soft: 0 30px 80px -20px oklch(0 0 0 / 0.6);
+
+  /* Premium elevation scale — layered, tinted with brand */
+  --shadow-xs: 0 1px 2px oklch(0 0 0 / 0.4);
+  --shadow-sm: 0 2px 8px -2px oklch(0 0 0 / 0.4), 0 1px 2px oklch(0 0 0 / 0.3);
+  --shadow-md: 0 8px 24px -8px oklch(0 0 0 / 0.5), 0 2px 6px -2px oklch(0 0 0 / 0.3);
+  --shadow-lg: 0 20px 50px -12px oklch(0 0 0 / 0.55), 0 6px 14px -6px oklch(0 0 0 / 0.35);
+  --shadow-xl: 0 40px 100px -20px oklch(0 0 0 / 0.6), 0 12px 28px -10px oklch(0 0 0 / 0.4);
+  --shadow-inset-hi: inset 0 1px 0 oklch(1 0 0 / 0.08);
+  --shadow-ring-brand: 0 0 0 1px oklch(0.72 0.19 265 / 0.35), 0 0 30px oklch(0.7 0.22 265 / 0.25);
+
+  /* Motion tokens */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-quad: cubic-bezier(0.45, 0, 0.55, 1);
+  --ease-cinema: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-swift: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-glide: cubic-bezier(0.6, 0.01, 0.05, 1);
+}
+
+.dark {
+  --background: oklch(0.129 0.042 264.695);
+  --foreground: oklch(0.984 0.003 247.858);
+  --card: oklch(0.208 0.042 265.755);
+  --card-foreground: oklch(0.984 0.003 247.858);
+  --popover: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.929 0.013 255.508);
+  --primary-foreground: oklch(0.208 0.042 265.755);
+  --secondary: oklch(0.279 0.041 260.031);
+  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --muted: oklch(0.279 0.041 260.031);
+  --muted-foreground: oklch(0.704 0.04 256.788);
+  --accent: oklch(0.279 0.041 260.031);
+  --accent-foreground: oklch(0.984 0.003 247.858);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.551 0.027 264.364);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.208 0.042 265.755);
+  --sidebar-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.279 0.041 260.031);
+  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.551 0.027 264.364);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.005em;
+  }
+  html {
+    color-scheme: dark;
+    scroll-padding-top: 6rem;
+  }
+  /* Native smooth anchor scrolling only when Lenis is NOT driving the page
+     (touch devices, reduced motion). With Lenis active the two systems would
+     fight over the scroll position — Lenis adds .lenis to <html> when it runs. */
+  html:not(.lenis) {
+    scroll-behavior: smooth;
+  }
+  /* Belt-and-braces against sideways scroll from any decorative overflow. */
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+  /* Premium heading rhythm */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.03em;
+    font-feature-settings: "ss01", "ss02", "cv11";
+  }
+  /* Consistent smooth interactive transitions */
+  a,
+  button,
+  [role="button"],
+  summary {
+    transition:
+      color 320ms var(--ease-cinema),
+      background-color 380ms var(--ease-cinema),
+      border-color 380ms var(--ease-cinema),
+      transform 520ms var(--ease-cinema),
+      box-shadow 520ms var(--ease-cinema),
+      opacity 320ms var(--ease-cinema),
+      filter 420ms var(--ease-cinema);
+  }
+  ::selection {
+    background: oklch(0.7 0.2 260 / 0.35);
+    color: oklch(0.98 0.005 250);
+  }
+  :focus-visible {
+    outline: 2px solid oklch(0.78 0.2 265);
+    outline-offset: 3px;
+    border-radius: 8px;
+    box-shadow: 0 0 0 6px oklch(0.7 0.22 265 / 0.15);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  /* Custom cursor: hide native cursor on fine-pointer desktops when active */
+  html.has-custom-cursor,
+  html.has-custom-cursor a,
+  html.has-custom-cursor button,
+  html.has-custom-cursor [role="button"],
+  html.has-custom-cursor input,
+  html.has-custom-cursor textarea,
+  html.has-custom-cursor label,
+  html.has-custom-cursor summary {
+    cursor: none;
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+}
+@utility font-mono-tight {
+  font-family: var(--font-mono);
+  letter-spacing: -0.01em;
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, oklch(1 0 0 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(1 0 0 / 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
+}
+
+@utility bg-aurora {
+  background-image: var(--gradient-aurora);
+}
+
+@utility glass {
+  background: oklch(0.2 0.02 265 / 0.45);
+  backdrop-filter: blur(12px);
+  border: 1px solid oklch(1 0 0 / 0.08);
+  box-shadow: var(--shadow-md), var(--shadow-inset-hi);
+  /* backdrop-filter is the single most expensive CSS effect on mobile GPUs —
+     drop it on small screens and keep just the tinted background. (This lives
+     inside the utility on purpose: a rule in @layer base can never override a
+     utility, so the old mobile override silently did nothing.) */
+  @media (max-width: 767px) {
+    backdrop-filter: none;
+  }
+}
+
+@utility glass-strong {
+  background: oklch(0.22 0.03 265 / 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid oklch(1 0 0 / 0.12);
+  box-shadow: var(--shadow-lg), var(--shadow-inset-hi);
+  @media (max-width: 767px) {
+    backdrop-filter: none;
+  }
+}
+
+@utility glow-blue {
+  box-shadow: var(--shadow-glow-blue);
+}
+@utility glow-purple {
+  box-shadow: var(--shadow-glow-purple);
+}
+
+@utility shadow-elev-sm {
+  box-shadow: var(--shadow-sm);
+}
+@utility shadow-elev-md {
+  box-shadow: var(--shadow-md);
+}
+@utility shadow-elev-lg {
+  box-shadow: var(--shadow-lg);
+}
+@utility shadow-elev-xl {
+  box-shadow: var(--shadow-xl);
+}
+
+/* Lift on hover — consistent premium hover behavior */
+@utility hover-lift {
+  will-change: transform, box-shadow;
+  &:hover {
+    transform: translate3d(0, -4px, 0);
+    box-shadow: var(--shadow-lg), var(--shadow-inset-hi);
+    border-color: oklch(1 0 0 / 0.16);
+  }
+}
+
+/* Luxury sheen sweep on hover — subtle diagonal light pass */
+@utility hover-sheen {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      115deg,
+      transparent 30%,
+      oklch(1 0 0 / 0.08) 48%,
+      oklch(0.85 0.15 265 / 0.12) 52%,
+      transparent 70%
+    );
+    transform: translateX(-120%);
+    transition: transform 900ms var(--ease-cinema);
+  }
+  &:hover::after {
+    transform: translateX(120%);
+  }
+}
+
+/* Brand-tinted glow ring for premium interactive elements */
+@utility hover-glow-brand {
+  transition:
+    box-shadow 520ms var(--ease-cinema),
+    border-color 520ms var(--ease-cinema);
+  &:hover {
+    box-shadow:
+      0 0 0 1px oklch(0.72 0.19 265 / 0.35),
+      0 20px 60px -20px oklch(0.7 0.22 265 / 0.4),
+      0 0 60px -10px oklch(0.62 0.24 305 / 0.35);
+  }
+}
+
+/* Gradient border via mask — luxury edge */
+@utility ring-gradient {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      oklch(0.8 0.16 265 / 0.6),
+      oklch(0.7 0.22 305 / 0.4) 50%,
+      oklch(1 0 0 / 0.05)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+@utility text-gradient {
+  background: linear-gradient(
+    135deg,
+    oklch(0.98 0.005 250) 0%,
+    oklch(0.75 0.16 265) 50%,
+    oklch(0.7 0.22 305) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -12px, 0);
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@keyframes sheen-slide {
+  0% {
+    transform: translateX(-120%) skewX(-12deg);
+  }
+  100% {
+    transform: translateX(220%) skewX(-12deg);
+  }
+}
+
+@utility animate-drift {
+  animation: drift 8s ease-in-out infinite;
+}
+@utility animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+@utility animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+@utility animate-breathe {
+  animation: breathe 6s ease-in-out infinite;
+}
+@utility animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 12s ease-in-out infinite;
+}
+
+/* ------------------------------------------------------------------ *
+ * Lenis — required base rules for desktop smooth scrolling.
+ * (Mirrors lenis/dist/lenis.css; kept inline so there is one stylesheet.)
+ * ------------------------------------------------------------------ */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ *
+ * Soft glow without a blur filter.
+ * A radial gradient is already soft, so it replaces `blur-[100px]` on
+ * huge coloured circles — same look, no full-layer filter to rasterise.
+ * Colour comes from --blob (any colour, including alpha).
+ * ------------------------------------------------------------------ */
+@utility glow-blob {
+  background: radial-gradient(
+    closest-side,
+    var(--blob, oklch(0.7 0.22 265 / 0.2)) 0%,
+    color-mix(in oklab, var(--blob, oklch(0.7 0.22 265 / 0.2)) 45%, transparent) 55%,
+    transparent 100%
+  );
+}
+
+/* ------------------------------------------------------------------ *
+ * Hero — legibility scrim (one element instead of four stacked layers)
+ * and CSS-only entrance animations.
+ *
+ * The entrances use `animation-fill-mode: backwards`, so the "from" state
+ * applies during the delay and, once finished, the element falls back to its
+ * natural style — no leftover `filter: blur(0)` or `transform`, no stacking
+ * context. They also run from the first paint instead of waiting for React.
+ * ------------------------------------------------------------------ */
+@utility hero-scrim {
+  background:
+    linear-gradient(rgb(0 0 0 / 0.15), rgb(0 0 0 / 0.15)),
+    linear-gradient(to bottom, rgb(0 0 0 / 0.55), rgb(0 0 0 / 0.1) 50%, rgb(0 0 0 / 0.7)),
+    linear-gradient(to right, rgb(0 0 0 / 0.8), rgb(0 0 0 / 0.35) 50%, rgb(0 0 0 / 0.15)),
+    linear-gradient(
+      135deg,
+      oklch(0.32 0.22 265 / 0.22) 0%,
+      transparent 45%,
+      oklch(0.28 0.22 305 / 0.22) 100%
+    );
+  /* Phones: text sits at the bottom, so darken from the bottom up instead of
+     from the left, and leave the top (the face) clear. */
+  @media (max-width: 767px) {
+    background:
+      linear-gradient(
+        to bottom,
+        rgb(0 0 0 / 0.5) 0%,
+        rgb(0 0 0 / 0.04) 22%,
+        rgb(0 0 0 / 0.22) 46%,
+        rgb(0 0 0 / 0.78) 72%,
+        rgb(0 0 0 / 0.94) 100%
+      ),
+      linear-gradient(
+        135deg,
+        oklch(0.32 0.22 265 / 0.22) 0%,
+        transparent 45%,
+        oklch(0.28 0.22 305 / 0.22) 100%
+      );
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--rise, 20px), 0);
+    filter: blur(var(--blur, 12px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@utility hero-rise {
+  --rise: 20px;
+  --blur: 12px;
+  --dur: 1.2s;
+  animation: hero-rise var(--dur) var(--ease-cinema) var(--delay, 0s) backwards;
+  @media (max-width: 767px) {
+    --rise: 14px;
+    --blur: 4px;
+    --dur: 0.8s;
+  }
+}
+/* Per-letter variant for the name: bigger travel and blur, staggered via --delay. */
+@utility hero-letter {
+  --rise: 0.6em;
+  --blur: 14px;
+  --dur: 1.15s;
+  animation: hero-rise var(--dur) var(--ease-cinema) var(--delay, 0s) backwards;
+  @media (max-width: 767px) {
+    --blur: 4px;
+    --dur: 0.8s;
+  }
+}
+@utility hero-fade {
+  animation: hero-fade var(--dur, 1.6s) ease-out var(--delay, 0s) backwards;
+}
+
+/* Ambient orbs in the hero: transform-only drift, paused while off-screen. */
+@keyframes orb-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  33% {
+    transform: translate3d(40px, -30px, 0);
+  }
+  66% {
+    transform: translate3d(-20px, 20px, 0);
+  }
+}
+@keyframes orb-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  33% {
+    transform: translate3d(-30px, 20px, 0);
+  }
+  66% {
+    transform: translate3d(20px, -30px, 0);
+  }
+}
+@utility animate-orb-a {
+  animation: orb-a 18s ease-in-out infinite;
+}
+@utility animate-orb-b {
+  animation: orb-b 22s ease-in-out infinite;
+}
+
+@keyframes scroll-cue {
+  from {
+    transform: translateY(-110%);
+  }
+  to {
+    transform: translateY(300%);
+  }
+}
+@utility animate-scroll-cue {
+  animation: scroll-cue 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
