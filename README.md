@@ -5,8 +5,6 @@ A cinematic, recruiter-focused personal portfolio built to present my work acros
 The portfolio is designed as a single immersive experience rather than a traditional resume website, with dedicated case-study pages for my strongest projects and a compact section for additional builds.
 
 **Live Portfolio:** https://imranghafoor.vercel.app/  
-**GitHub:** https://github.com/Imran-Ghafoor594  
-**LinkedIn:** https://linkedin.com/in/imranghafoor56
 
 ---
 
@@ -360,7 +358,6 @@ The portfolio includes:
 **Email:** meimranghafoor@gmail.com  
 **GitHub:** https://github.com/Imran-Ghafoor594  
 **LinkedIn:** https://linkedin.com/in/imranghafoor56  
-**Portfolio:** https://imranghafoor.vercel.app/
 
 ---
 
