@@ -9,7 +9,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
-
+import { useLocation } from "@tanstack/react-router";
 import appCss from "../styles.css?url";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -117,12 +117,13 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const location = useLocation();
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
-      <ChatWidget />
+
+      {location.pathname !== "/chat" && <ChatWidget />}
     </QueryClientProvider>
   );
 }
