@@ -1,366 +1,229 @@
-# Imran Ghafoor — AI Engineering Portfolio
+<div align="center">
 
-A cinematic, recruiter-focused personal portfolio built to present my work across Artificial Intelligence, Machine Learning, Computer Vision, data-driven applications, and full-stack engineering.
+<img width="100%" alt="Imran Ghafoor AI Engineering Portfolio" src="https://capsule-render.vercel.app/api?type=waving&height=260&color=0:141327,45:32265d,100:0a0b14&text=IMRAN%20GHAFOOR&fontSize=42&fontColor=FFFFFF&animation=fadeIn&fontAlignY=42" />
 
-The portfolio is designed as a single immersive experience rather than a traditional resume website, with dedicated case-study pages for my strongest projects and a compact section for additional builds.
+# AI Engineering Portfolio · Imran AI
 
-**Live Portfolio:** https://imranghafoor.vercel.app/  
+**A recruiter-first portfolio with an evidence-grounded personal AI assistant.**
 
----
+[![React](https://img.shields.io/badge/React-19-149ECA?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
+[![TanStack Start](https://img.shields.io/badge/TanStack-Start-E63B52?style=for-the-badge)](https://tanstack.com/start)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
-## About
+![Retrieval](https://img.shields.io/badge/Knowledge-TF--IDF%20Retrieval-8B5CF6?style=flat-square)
+![AI](https://img.shields.io/badge/AI-Groq%20Fallback-5C6AC4?style=flat-square)
+![Quota](https://img.shields.io/badge/Quota-5%20Groq%20Calls%2F24h-0F766E?style=flat-square)
+![Storage](https://img.shields.io/badge/Chat%20Storage-No%20Conversation%20Persistence-166534?style=flat-square)
 
-I am Imran Ghafoor, an Artificial Intelligence student and aspiring AI/ML Engineer based in Pakistan. My work focuses on building practical intelligent systems and turning machine-learning ideas into usable applications.
+[**Live Portfolio**](https://imranghafoor.vercel.app/) · [**GitHub Profile**](https://github.com/Imran-Ghafoor594) · [**LinkedIn**](https://linkedin.com/in/imranghafoor56)
 
-This portfolio brings together my work in:
-
-- Machine Learning and predictive modeling
-- Deep Learning and Computer Vision
-- NLP and Generative AI
-- AI-powered application development
-- Data-driven software systems
-- Full-stack applications with Flask and MySQL
-
-The site also documents my internship experience, technical stack, certifications, resume, and selected engineering work.
+</div>
 
 ---
 
-## Featured Projects
+## The purpose
 
-The portfolio currently highlights four primary case studies. Each project has its own detailed route covering the problem, solution, technology, implementation, and project-specific results.
+Recruiters need fast, verifiable answers: **What has Imran built? Which skills does he demonstrate? Where did he study? What did he do during his internships?** The portfolio puts real project case studies first, while an optional assistant surfaces approved facts and links to supporting evidence.
 
-| # | Project | Focus |
+The original cinematic layout, project routes, hero video, visual effects, navigation, and color system are preserved. This repository adds an assistant without replacing the work itself.
+
+## Key features
+
+- **Project-first storytelling** — CropHeat AI, PlantScan, Smart Electricity Consumption and EduPredict, each with a dedicated case-study route.
+- **Personal knowledge retrieval** — curated public facts indexed using dependency-free TF-IDF + cosine similarity, with alternative question phrasings.
+- **Conditional Groq fallback** — weak or complex relevant queries can be answered by a model supplied with the **approved public profile**. The model is instructed not to invent facts.
+- **5 Groq-assisted answers per visitor per rolling 24 hours** — enforced server-side with Redis. Direct, confidently matched answers do not consume the allowance.
+- **Delayed circular indicator** — appears after the *third Groq-assisted call*, never on initial chat open.
+- **Privacy-first session** — messages live in React memory only and clear on chat close, reload, or route navigation. No conversation database, localStorage, or sessionStorage.
+- **Voice controls** — optional browser speech-to-text and read-aloud with a text fallback.
+- **Accessible, contained chat UI** — native visible pointer, independent wheel/touch scrolling and isolation from Lenis smooth page scroll.
+- **Updated recruiter resume** — three published internships and four key projects; synthetic electricity data described accurately.
+
+## Portfolio projects
+
+| Project | Focus | Case study |
 |---|---|---|
-| 01 | **CropHeat AI** | Climate intelligence, risk scoring, APIs, FastAPI |
-| 02 | **PlantScan** | Computer Vision, transfer learning, plant disease detection |
-| 03 | **Smart Electricity Consumption** | Regression, prediction, data analysis, Flask |
-| 04 | **EduPredict** | Database Systems, Flask, MySQL, student portal |
+| **CropHeat AI** | Explainable deterministic crop heat-risk scoring, FortyGuard, FastAPI, geospatial data | [Read](https://imranghafoor.vercel.app/projects/cropheat-ai) |
+| **PlantScan** | Plant disease classification, transfer learning, TensorFlow, Flask | [Read](https://imranghafoor.vercel.app/projects/plantscan) |
+| **Smart Electricity Consumption** | Regression, synthetic household energy dataset, Flask | [Read](https://imranghafoor.vercel.app/projects/electricity) |
+| **EduPredict** | Academic portal, student/course/result workflows, Flask + MySQL | [Read](https://imranghafoor.vercel.app/projects/edupredict) |
 
-### CropHeat AI
+Other builds include Jarvis AI Assistant and RoboImmi.
 
-A hyperlocal crop heat-risk platform that converts weather and climate data into an explainable crop-specific risk score. The system combines six weighted factors and produces a transparent 0–100 risk score with actionable advisory information.
+## System architecture
 
-**Stack:** Next.js, FastAPI, FortyGuard, Leaflet, SQLite
+```mermaid
+flowchart TD
+    V[Recruiter / visitor] --> UI[React Chat Widget]
+    UI --> API[TanStack Start /api/chat]
+    API --> S[Validate question and visitor]
+    S --> R[TF-IDF + cosine similarity]
+    R --> D{High-confidence factual match?}
+    D -->|Yes| A[Curated verified answer]
+    D -->|No| K{Relevant public profile question?}
+    K -->|No| U[Honest unknown response]
+    K -->|Yes| Q[Redis atomic quota check]
+    Q -->|Available| G[Groq + approved profile context]
+    Q -->|Exhausted / unconfigured| F[Safe fallback]
+    G --> P[Professional short answer]
+    A --> O[Reply + source link]
+    P --> O
+    U --> O
+    F --> O
+    O --> UI
+```
 
-**Repository:** https://github.com/Imran-Ghafoor594/cropheat-ai  
-**Case study:** `/projects/cropheat-ai`
+### How retrieval works
 
-> CropHeat is an explainable rule-based/hybrid risk engine, not a trained ML model.
+1. Each knowledge entry contains **approved answer text, multiple common questions, a source link and a compact context snippet**.
+2. TF-IDF and cosine similarity rank the question examples. A confident, unambiguous match returns the prepared answer immediately and **costs no Groq call**.
+3. Weak/ambiguous matches related to Imran may request AI assistance. Groq receives the **approved compact public profile** (not a private file system or unreviewed documents) plus the current question.
+4. If the question concerns an unverified personal fact (for example, preferred work city, remote/hybrid preference or a residential address), the assistant **does not guess**. It refers the visitor to direct contact.
+5. If the allowance is exhausted, evidence-backed direct answers continue to work.
 
-### PlantScan
+**Terminology:** This is an *extractive TF-IDF retrieval + conditional LLM fallback* architecture, not an embeddings/vector-database RAG service. Similarity thresholds are heuristic and should be evaluated with real recruiter questions before broad launch.
 
-A plant disease detection system built by training and comparing three CNN backbones using transfer learning: EfficientNetB0, MobileNetV2, and ResNet50. The models are served through Flask with live camera capture and quality-gated automatic capture.
+### 5-call allowance and safeguards
 
-The portfolio presents the documented 98% result for the 38-class model setup while keeping the different dataset/model configurations explicit in the case study.
+| Action | Groq cost | What is stored |
+|---|---|---|
+| Strong verified retrieval match | **0** | No chat content |
+| Weak/complex relevant question with budget | **1 reservation** | Pseudonymous counter with TTL |
+| Unknown/unverified personal fact | **0** | No chat content |
+| Limit exhausted | **0** | Counter only |
+| Close chat / change page / refresh | **0** | Local messages discarded; quota remains |
 
-**Stack:** TensorFlow, Keras, EfficientNetB0, MobileNetV2, ResNet50, Flask, OpenCV
+Redis uses an atomic Lua script to reserve at most five Groq calls for a signed anonymous visitor ID, expiring after 24 hours from first use. Requests are also throttled per visitor when Redis is configured. A browser clearing cookies may receive a new anonymous identity: **strict person-level enforcement requires login**, which this public portfolio intentionally does not add. Failed upstream calls conservatively count as attempts to discourage retry abuse.
 
-**Repository:** https://github.com/Imran-Ghafoor594/plant_disease_detection  
-**Case study:** `/projects/plantscan`
+## Stack
 
-### Smart Electricity Consumption
+| Layer | Technology |
+|---|---|
+| Framework | React 19, TanStack Start / Router, TypeScript |
+| UI | Tailwind CSS 4, Motion, Lenis, Lucide |
+| Server API | TanStack Start server routes (`GET` / `POST /api/chat`) |
+| Knowledge engine | Local structured TypeScript data + TF-IDF/cosine similarity |
+| Model | Groq chat completions (`openai/gpt-oss-20b` by default) |
+| Anonymous quota | Upstash Redis REST API and HttpOnly signed cookie |
+| Voice | Browser Web Speech API; unsupported browsers use typing |
+| Hosting | Vercel-compatible deployment (verify your selected adapter/preset) |
 
-A household electricity consumption prediction system that compares seven regression models and deploys the selected model through a Flask application. The application also provides estimated consumption, bill information, efficiency scoring, and energy-saving recommendations.
-
-**Documented metrics:** R² 0.9641, MAE 1.57 kWh, RMSE 1.98 kWh
-
-**Stack:** Python, Pandas, Scikit-learn, XGBoost, Flask
-
-**Repository:** https://github.com/Imran-Ghafoor594/smart_electricity_consumption_prediction  
-**Case study:** `/projects/electricity`
-
-### EduPredict
-
-EduPredict is a full-stack university student portal developed as a Database Systems project. It is intentionally presented as a database/full-stack engineering project rather than an AI/ML project.
-
-The system provides separate Admin and Student workflows:
-
-- Admin authentication
-- Student account creation and deletion
-- Course management
-- Marks entry with automatic grade calculation
-- Result publishing
-- Semester-fee management
-- Student course enrollment and dropping
-- Result and CGPA viewing
-- Student profile management
-
-**Stack:** Python, Flask, MySQL, HTML, CSS, JavaScript, Flask Sessions
-
-**Repository:** https://github.com/Imran-Ghafoor594/edu-predict  
-**Case study:** `/projects/edupredict`
-
----
-
-## Other Builds
-
-Smaller or earlier projects remain accessible without competing with the four main case studies.
-
-### Jarvis AI Assistant
-A multilingual, voice-first Python assistant using Gemini, including Hindi-to-English translation, web navigation, schedule lookup, and sleep/wake controls.
-
-**Repository:** https://github.com/Imran-Ghafoor594/Jarvis
-
-### RoboImmi
-A desktop AI chatbot for DSA and AI questions using voice/text interaction, TF-IDF retrieval, logistic regression, chat history, and authentication.
-
-**Repository:** https://github.com/Imran-Ghafoor594/RoboImmi
-
----
-
-## Experience
-
-### Machine Learning Intern — NeuroFive Solutions
-**16 July 2026 — 28 August 2026**
-
-Completed an ML-track capstone focused on stress-level prediction, including data cleaning, feature engineering, comparison of Linear Regression, Random Forest, and XGBoost, and deployment as a Streamlit application.
-
-**Stack:** Python, Pandas, Scikit-learn, XGBoost, Streamlit
-
-Repository: https://github.com/Imran-Ghafoor594/daily-stress-predictor
-
-### Machine Learning Intern — Teyzix Core
-**11 June 2026 — 10 July 2026**
-
-Worked on the Smart Electricity Consumption Prediction system using regression models, feature engineering, data analysis, and Flask deployment.
-
-**Stack:** Python, Scikit-learn, Pandas, Flask, Machine Learning
-
-### AI Intern — Decode Labs
-**10 June 2026 — 10 July 2026**
-
-Worked on AI applications, machine-learning workflows, and intelligent automation using Python and related AI tooling.
-
----
-
-## Portfolio Features
-
-- Cinematic full-screen hero with background video
-- Personal name and AI Engineer positioning directly over the hero
-- Responsive mobile experience with native touch scrolling
-- Desktop smooth scrolling using Lenis
-- Custom cursor and mouse-tracked ambient effects on fine-pointer devices
-- Neural node-network background on supported devices
-- Reduced-motion support through Motion and CSS
-- Dedicated project case-study routes
-- Featured-project and Other Builds separation
-- Experience timeline
-- Technical Architecture section
-- GitHub, LinkedIn, and resume access
-- Internship certificate viewing
-- Blog routes for technical write-ups
-- SEO metadata, `robots.txt`, `sitemap.xml`, and `llms.txt`
-
----
-
-## Tech Stack
-
-### Frontend
-
-- React 19
-- TypeScript
-- TanStack Start
-- TanStack Router
-- Tailwind CSS
-- Motion
-- Lenis
-- Lucide React
-
-### UI & Interaction
-
-- Responsive component architecture
-- Motion-based reveal animations
-- Native Canvas/SVG effects
-- Custom cursor
-- Mouse-tracked glow effects
-- Mobile navigation
-- Reduced-motion support
-
-### Engineering
-
-- File-based routing
-- SSR through TanStack Start
-- TanStack Query
-- ESLint
-- Prettier
-- Vite
-
-### Deployment
-
-- Vercel
-
----
-
-## Project Structure
+## Repository map
 
 ```text
-src/
-├── components/
-│   ├── portfolio/
-│   │   ├── Hero.tsx
-│   │   ├── HeroBackdrop.tsx
-│   │   ├── Navbar.tsx
-│   │   ├── Projects.tsx
-│   │   ├── CropHeatCaseStudy.tsx
-│   │   ├── PlantScanCaseStudy.tsx
-│   │   ├── ElectricityCaseStudy.tsx
-│   │   ├── EduPredictCaseStudy.tsx
-│   │   ├── About.tsx
-│   │   ├── Experience.tsx
-│   │   ├── Architecture.tsx
-│   │   ├── Contact.tsx
-│   │   └── Footer.tsx
-│   ├── effects/
-│   │   ├── SmoothScroll.tsx
-│   │   ├── NeuralBackground.tsx
-│   │   ├── MouseGlow.tsx
-│   │   ├── CustomCursor.tsx
-│   │   └── Reveal.tsx
-│   └── ui/
-├── routes/
-│   ├── index.tsx
-│   ├── projects.cropheat-ai.tsx
-│   ├── projects.plantscan.tsx
-│   ├── projects.electricity.tsx
-│   ├── projects.edupredict.tsx
-│   ├── blog.index.tsx
-│   ├── blog.$slug.tsx
-│   └── __root.tsx
-├── data/
-│   ├── projects.ts
-│   ├── experience.ts
-│   ├── architecture.ts
-│   └── site.ts
-├── hooks/
-└── assets/
-
-public/
-├── video/
-├── certificates/
-├── resume/
-├── robots.txt
-└── llms.txt
+.
+├── public/
+│   ├── certificates/                # Published supporting certificates
+│   ├── resume/Imran Ghafoor.pdf      # Updated, selectable one-page resume
+│   └── video/                       # Existing hero video and poster
+├── src/
+│   ├── components/
+│   │   ├── chat/ChatWidget.tsx       # Greeting, messages, voice, circular allowance
+│   │   ├── effects/                  # Original portfolio effects
+│   │   └── portfolio/               # Original sections and case studies
+│   ├── data/                         # Featured projects, experience and links
+│   ├── lib/server/
+│   │   ├── knowledge.ts              # Approved public knowledge base
+│   │   ├── retrieval.ts              # TF-IDF search
+│   │   ├── quota.ts                  # Signed visitor and atomic Redis quota
+│   │   └── assistant.ts              # Retrieval vs Groq orchestration
+│   ├── routes/
+│   │   ├── api.chat.ts               # JSON API, no chat persistence
+│   │   ├── __root.tsx                # Shared chat widget
+│   │   └── projects.*.tsx            # Original case-study routes
+│   └── styles.css                    # Original theme + isolated chat fixes
+├── .env.example
+├── package.json
+└── README.md                        # This single project README
 ```
 
----
+## Setup from scratch
 
-## Getting Started
+### Prerequisites
 
-### 1. Clone the repository
+- Node.js **22+** and npm
+- Groq account and API key for AI-assisted answers
+- Upstash Redis database with REST URL and token for the daily budget
+- A long random HMAC secret for the signed visitor cookie
 
-```bash
-git clone https://github.com/Imran-Ghafoor594/my_portfolio.git
-cd my_portfolio
-```
-
-### 2. Install dependencies
-
-This project was built with Bun and includes a lockfile.
+### Local development
 
 ```bash
-bun install
-```
+# 1. Install dependencies
+npm ci
 
-Alternatively, npm can be used:
+# 2. Configure secrets (never commit .env)
+cp .env.example .env
 
-```bash
-npm install --legacy-peer-deps
-```
-
-### 3. Start the development server
-
-```bash
-bun run dev
-```
-
-Or with npm:
-
-```bash
+# 3. Start the application
 npm run dev
 ```
 
-Then open the local URL shown by Vite.
+Open the localhost URL printed by Vite. The chat can be opened directly using `/?chat=open`.
 
-### 4. Production build
+### Environment variables
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `GROQ_API_KEY` | For AI answers | Secret Groq API credential |
+| `GROQ_MODEL` | Optional | Defaults to `openai/gpt-oss-20b` |
+| `UPSTASH_REDIS_REST_URL` | For AI answers | Upstash HTTPS Redis endpoint |
+| `UPSTASH_REDIS_REST_TOKEN` | For AI answers | Secret Redis REST token |
+| `CHAT_VISITOR_SECRET` | For AI answers | HMAC signing secret, at least 32 random bytes recommended |
+
+Generate the secret with `openssl rand -hex 32`. Add these variables in your hosting provider's **server-side environment settings**. Never expose them with `VITE_` names and never put them in source control. `.env.example` contains **empty placeholders only**.
+
+**Safe default:** Without all required variables, the portfolio and verified direct retrieval remain available; Groq is disabled rather than running without a quota.
+
+### Deployment checklist
+
+1. Push this clean repository to GitHub (the included ZIP contains no `.git`, `node_modules` or secret `.env`).
+2. Import it into Vercel, select the appropriate TanStack Start/Nitro-compatible server runtime, and configure all required environment variables.
+3. Build and deploy using the project scripts and the host's supported adapter.
+4. Confirm `/api/chat` status returns the expected `aiAvailable` state. Test a direct fact, a complex question, and quota exhaustion.
+5. Test desktop wheel scroll, cursor visibility, mobile touch scroll, voice fallback, Escape-to-close, close/reopen privacy and route navigation.
+6. Review Groq's data retention controls and enable Zero Data Retention if eligible/required.
+
+### Scripts
 
 ```bash
-npm run build
+npm run dev       # local server
+npm run build     # production build
+npm run preview   # preview server
+npm run lint      # ESLint
+npm run test:assistant  # mocked retrieval and quota tests
 ```
 
-### 5. Preview the production build
+## Privacy and limitations
 
-```bash
-npm run preview
-```
+- Chat messages exist only in the currently open widget's memory and are cleared on close and navigation. **No conversation content is explicitly written** to browser storage, a database or application logs.
+- The backend sends **the current question and approved public profile facts** to Groq when an AI call is needed. Upstream services and hosts may apply their own retention and diagnostic policies. Browser deletion does **not** guarantee deletion from a third-party provider.
+- Signed anonymous cookies are for quota tracking only. A Redis key stores a **pseudonymous counter**, not the question, email or name.
+- Request abortion on chat close prevents stale UI responses but **cannot guarantee an already-running upstream call stops**.
+- TF-IDF can underperform on short queries, typos, multilingual paraphrases and ambiguous questions. Direct responses are conservative, and thresholds should be calibrated with examples.
+- Career preferences, relocation, salary expectations and personal residential details are **not verified**; the assistant must not invent them.
+- Web Speech Recognition depends on browser support and may use browser-vendor services; it is not guaranteed offline.
+- Production behavior, Groq quota enforcement and hosting integration require real credentials and deployment testing; source code alone cannot demonstrate a live API call.
 
-### 6. Lint the project
+## Responsible content updates
 
-```bash
-npm run lint
-```
+Edit `src/lib/server/knowledge.ts` when education, preferred work city, roles or availability changes. Confirm each entry against Imran's approved resume or portfolio. Include a source URL and alternate ways recruiters may phrase a question. Do **not** insert complete private documents or unapproved home addresses into the context.
 
-### 7. Format the project
+## Further improvements
 
-```bash
-npm run format
-```
+- Measure retrieval recall and false matches against a fixed set of 50–100 recruiter questions.
+- Add a consent-based editor workflow for approved career preferences.
+- Add optional global account-wide Groq budget alerts and anti-bot controls.
+- Consider embeddings only after TF-IDF misses demonstrably justify added complexity.
+- Run accessibility/visual regression and performance audits after deployment.
 
 ---
 
-## Engineering Decisions
+<div align="center">
 
-### Performance
+**Built to help people understand the work, not replace the work.**
 
-The portfolio uses animation selectively instead of turning every section into a continuously animated scene.
+<img src="https://capsule-render.vercel.app/api?type=waving&height=120&section=footer&color=0:141327,45:32265d,100:0a0b14" width="100%" alt="Decorative footer" />
 
-- Lenis is used for desktop smooth scrolling while touch devices retain native scrolling.
-- The hero video uses a poster image for smaller devices.
-- The hero video is paused when it is outside the viewport where appropriate.
-- Large blur-heavy layers are avoided in favor of lighter gradients.
-- The neural background is limited to supported devices and is paused when it is not visible.
-- Mouse effects only run on fine-pointer devices.
-- Motion respects the user's `prefers-reduced-motion` setting.
-
-### Content integrity
-
-Project metrics are based on the corresponding project documentation rather than invented portfolio numbers. Different datasets and evaluation setups are kept distinct where necessary.
-
-For example, PlantScan uses different dataset configurations across its model experiments, so the portfolio avoids presenting every reported result as though it came from one identical benchmark.
-
-EduPredict is described as a Database Systems/full-stack project because that reflects its actual implementation: Flask, MySQL, sessions, CRUD workflows, course enrollment, results, and fee management.
-
-### Portfolio architecture
-
-The main homepage is composed from reusable React sections, while detailed project stories live on dedicated routes. This keeps the landing page focused while allowing each major project to have enough technical depth for recruiters or engineers who want to inspect the work.
-
----
-
-## SEO & Accessibility
-
-The portfolio includes:
-
-- Page titles and meta descriptions
-- Open Graph metadata
-- Twitter card metadata
-- Canonical metadata
-- Schema.org Person structured data
-- `robots.txt`
-- `sitemap.xml`
-- `llms.txt`
-- Skip-to-content link
-- Semantic labels and accessible navigation
-- Reduced-motion support
-
----
-
-## Contact
-
-**Email:** meimranghafoor@gmail.com  
-**GitHub:** https://github.com/Imran-Ghafoor594  
-**LinkedIn:** https://linkedin.com/in/imranghafoor56  
-
----
-
-## License
-
-This repository contains my personal portfolio and project presentation. The portfolio content, branding, resume, certificates, and personal assets are not intended for redistribution without permission.
+</div>

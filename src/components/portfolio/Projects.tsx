@@ -22,7 +22,7 @@ export function FeaturedProjects() {
           <div className="col-span-12 lg:col-span-8">
             <SectionLabel index="02" label="Selected work" />
             <h2 className="font-display mt-8 max-w-3xl text-balance text-[clamp(2.25rem,6.4vw,6rem)] font-medium leading-[0.9] tracking-[-0.04em]">
-              Four systems, <span className="text-gradient">built beyond the classroom.</span>
+              Four systems, <span className="text-gradient">built around real problems.</span>
             </h2>
             <p className="mt-6 max-w-xl text-balance text-base leading-relaxed text-white/55 md:text-lg">
               Each project below started with a real problem, shipped as a working system, and left

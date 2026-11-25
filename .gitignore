@@ -32,3 +32,8 @@ dist-ssr
 *.sw?
 .tanstack
 
+
+# Private API keys / runtime configuration
+.env
+.env.*
+!.env.example

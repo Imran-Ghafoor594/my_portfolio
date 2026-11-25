@@ -171,10 +171,11 @@ export function Hero() {
             <MagneticButton
               href={RESUME_URL}
               external
-              className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.03] text-white/70 backdrop-blur-xl transition-all hover:border-white/25 hover:bg-white/[0.08] hover:text-white"
+              className="group inline-flex h-11 items-center justify-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.03] px-3.5 text-white/70 backdrop-blur-xl transition-all hover:border-white/25 hover:bg-white/[0.08] hover:text-white"
               aria-label="Resume"
             >
               <FileText className="h-4 w-4" />
+              <span className="font-mono-tight text-[11px] tracking-[0.02em]">Resume</span>
             </MagneticButton>
           </div>
         </div>

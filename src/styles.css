@@ -658,3 +658,154 @@ html.lenis body {
 @utility animate-scroll-cue {
   animation: scroll-cue 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
+
+/* ========== Ask Imran AI — recruiter-first assistant interface ========== */
+/* Isolated under imran-chat-* so existing hero, navigation and case studies stay untouched. */
+.imran-chat-root {
+  font-family: var(--font-sans);
+  position: relative;
+  z-index: 190;
+}
+.imran-chat-root button,
+.imran-chat-root a,
+.imran-chat-root textarea { -webkit-tap-highlight-color: transparent; }
+.imran-chat-launcher {
+  position: fixed;
+  right: max(22px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px 7px 7px;
+  min-height: 54px;
+  color: #f7f3ff;
+  background: linear-gradient(130deg, rgba(28,24,46,.98), rgba(19,18,34,.99));
+  border: 1px solid rgba(189,166,255,.27);
+  border-radius: 999px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.48), 0 0 30px rgba(110,88,222,.13);
+  cursor: pointer;
+  animation: imran-chat-rise .5s cubic-bezier(.22,1,.36,1) both;
+}
+.imran-chat-launcher:hover { border-color: rgba(199,183,255,.56); transform: translateY(-2px); box-shadow: 0 16px 44px rgba(0,0,0,.54), 0 0 32px rgba(110,88,222,.24); }
+.imran-chat-launcher:focus-visible { outline: 2px solid #c7b5ff; outline-offset: 4px; }
+.imran-chat-launcher-icon { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: linear-gradient(140deg, #7b5dc4, #5f70d4); color: white; }
+.imran-chat-launcher-text { font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: .02em; white-space: nowrap; }
+.imran-chat-launcher-dot { width: 6px; height: 6px; border-radius: 50%; background: #70d6b0; box-shadow: 0 0 9px rgba(112,214,176,.7); }
+
+.imran-chat-panel {
+  --chat-purple: #ae9aff;
+  --chat-muted: #aea8c3;
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  width: min(390px, calc(100vw - 32px));
+  height: min(645px, calc(100dvh - 36px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  isolation: isolate;
+  color: #f6f2ff;
+  background: #10101c;
+  border: 1px solid rgba(178,155,242,.27);
+  border-radius: 22px;
+  box-shadow: 0 38px 115px rgba(0,0,0,.72), 0 0 45px rgba(110,80,200,.16);
+  animation: imran-chat-appear .45s cubic-bezier(.16,1,.3,1) both;
+}
+.imran-chat-panel::before {
+  content: "";
+  position: absolute;
+  top: -115px; left: 10%; right: -80px;
+  height: 210px;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(122,92,209,.16), transparent 65%);
+  z-index: -1;
+}
+.imran-chat-header { display: flex; align-items: center; min-height: 76px; flex: 0 0 auto; gap: 11px; padding: 15px 16px; border-bottom: 1px solid rgba(255,255,255,.075); background: rgba(17,17,30,.96); }
+.imran-chat-avatar { width: 42px; height: 42px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 14px; color: #e1d2ff; background: linear-gradient(135deg, #383052, #282640); border: 1px solid rgba(191,162,255,.2); }
+.imran-chat-identity { flex: 1; min-width: 0; }
+.imran-chat-title { font-family: var(--font-display); font-size: 15px; font-weight: 600; letter-spacing: -.015em; display: flex; align-items: center; gap: 6px; }
+.imran-chat-title svg { color: #bca7ff; }
+.imran-chat-subtitle { margin-top: 3px; display: flex; align-items: center; gap: 6px; font-size: 11px; color: #9d97b2; }
+.imran-chat-status { width: 6px; height: 6px; border-radius: 50%; background: #71d4ab; }
+.imran-chat-icon-button { display: grid; place-items: center; flex: 0 0 auto; width: 32px; height: 32px; border-radius: 10px; color: #aaa4ba; cursor: pointer; }
+.imran-chat-icon-button:hover { color: white; background: rgba(255,255,255,.075); }
+.imran-chat-remaining { display: flex; align-items: center; flex-direction: column; gap: 0; width: 40px; flex: 0 0 auto; animation: imran-chat-rise .35s both; }
+.imran-chat-remaining-label { font-size: 9px; line-height: 10px; margin-top: -2px; font-weight: 500; letter-spacing: .02em; color: #aca3c6; }
+
+.imran-chat-messages { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 20px 18px 18px; scrollbar-color: #443c5f transparent; scrollbar-width: thin; }
+.imran-chat-welcome { margin: 0 0 24px; }
+.imran-chat-eyebrow { display: flex; align-items: center; gap: 7px; margin-bottom: 13px; font: 500 9px var(--font-mono); color: #baa4ff; letter-spacing: .15em; }
+.imran-chat-welcome h2 { margin: 0 0 9px; font-family: var(--font-display); font-size: 26px; letter-spacing: -.04em; line-height: 1.1; font-weight: 600; }
+.imran-chat-welcome > p { margin: 0; color: #b8b2c6; font-size: 13px; line-height: 1.7; }
+.imran-chat-welcome-limit { display: flex; align-items: center; gap: 10px; margin-top: 17px; padding: 12px; border: 1px solid rgba(175,154,255,.16); background: rgba(113,82,178,.105); border-radius: 13px; color: #cfc9da; font-size: 12px; line-height: 1.5; }
+.imran-chat-welcome-limit strong { color: white; font-weight: 600; }
+.imran-chat-welcome-icon { display: grid; place-items: center; width: 29px; height: 29px; flex-shrink: 0; color: #d2bfff; background: rgba(139,105,221,.18); border-radius: 10px; }
+.imran-chat-tip { display: block; width: 100%; text-align: left; margin-top: 16px; padding: 13px 14px; color: white; border-radius: 13px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.1); cursor: pointer; }
+.imran-chat-tip:hover { background: rgba(149,123,233,.12); border-color: rgba(178,155,250,.37); }
+.imran-chat-tip-label { display: block; margin-bottom: 6px; font: 500 9px var(--font-mono); letter-spacing: .13em; color: #9d94b8; }
+.imran-chat-tip-query { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12px; line-height: 1.55; }
+.imran-chat-tip-query svg { flex-shrink: 0; color: #c6b5ff; }
+
+.imran-chat-message { display: flex; gap: 9px; margin: 0 0 18px; }
+.imran-chat-message-user { justify-content: flex-end; }
+.imran-chat-message-assistant { justify-content: flex-start; }
+.imran-chat-response-avatar { width: 24px; height: 24px; flex-shrink: 0; display: grid; place-items: center; border-radius: 8px; color: #d1c1ff; background: #30283f; border: 1px solid rgba(255,255,255,.08); }
+.imran-chat-bubble-wrap { max-width: 87%; min-width: 0; }
+.imran-chat-bubble { padding: 12px 13px; font-size: 12.5px; line-height: 1.75; overflow-wrap: anywhere; white-space: pre-wrap; border-radius: 13px; background: #211f30; border: 1px solid rgba(255,255,255,.06); color: #ded9e8; }
+.imran-chat-message-user .imran-chat-bubble { background: linear-gradient(130deg, #58448d, #493c79); border-color: rgba(195,174,255,.2); color: white; border-radius: 14px 14px 3px 14px; }
+.imran-chat-message-assistant .imran-chat-bubble { border-radius: 3px 14px 14px 14px; }
+.imran-chat-link-card { display: flex; align-items: center; gap: 8px; margin-top: 9px; padding: 11px 10px; border: 1px solid rgba(172,151,235,.25); border-radius: 11px; background: rgba(119,94,177,.095); font-size: 11px; font-weight: 500; line-height: 1.35; color: #ded0ff; }
+.imran-chat-link-card:hover { background: rgba(145,110,225,.17); border-color: rgba(190,171,255,.45); color: white; }
+.imran-chat-link-card span:nth-child(2) { flex: 1; }
+.imran-chat-link-card > span:first-child { display: grid; place-items: center; height: 27px; width: 27px; border-radius: 8px; background: rgba(179,149,255,.14); }
+.imran-chat-speak { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; padding: 3px 1px; color: #9f99b5; font-size: 10.5px; cursor: pointer; }
+.imran-chat-speak:hover { color: #ded0ff; }
+.imran-chat-complete { margin: 6px 0 10px; padding: 21px 15px; background: linear-gradient(145deg, rgba(116,88,200,.16), rgba(28,27,47,.75)); border: 1px solid rgba(178,155,255,.2); border-radius: 16px; text-align: center; }
+.imran-chat-complete-icon { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; color: #d5c5ff; background: rgba(153,122,242,.18); }
+.imran-chat-complete h3 { font: 600 16px var(--font-display); margin: 11px 0 6px; }
+.imran-chat-complete p { font-size: 12px; line-height: 1.65; color: #b8b0c9; margin: 0; }
+.imran-chat-complete-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 15px; }
+.imran-chat-complete-actions a { display: inline-flex; align-items: center; gap: 5px; padding: 9px 10px; border-radius: 9px; color: #e7dfff; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.085); font-size: 11px; }
+.imran-chat-complete-actions a:hover { background: rgba(255,255,255,.13); }
+.imran-chat-reset { display: inline-flex; gap: 5px; align-items: center; margin-top: 14px; color: #8e879f; font-size: 10px; cursor: pointer; }
+.imran-chat-reset:hover { color: #e2d9ff; }
+
+.imran-chat-footer { padding: 12px 15px 13px; flex: 0 0 auto; background: #12111f; border-top: 1px solid rgba(255,255,255,.075); }
+.imran-chat-compose { display: flex; align-items: end; gap: 6px; padding: 6px; background: #211f2e; border: 1px solid rgba(181,161,239,.22); border-radius: 13px; }
+.imran-chat-compose:focus-within { border-color: rgba(181,161,239,.5); }
+.imran-chat-compose textarea { min-width: 0; flex: 1; padding: 9px 5px 8px 8px; background: transparent; border: 0; outline: none; box-shadow: none; font-size: 12px; line-height: 1.55; color: #f2eaff; resize: none; max-height: 100px; overflow-y: auto; min-height: 37px; }
+.imran-chat-compose textarea::placeholder { color: #888098; }
+.imran-chat-compose textarea:focus-visible { outline: none; box-shadow: none; }
+.imran-chat-compose-mic, .imran-chat-send { display: grid; place-items: center; flex: 0 0 auto; width: 35px; height: 35px; border-radius: 10px; cursor: pointer; }
+.imran-chat-compose-mic { color: #c3b7da; }
+.imran-chat-compose-mic:hover { background: rgba(255,255,255,.06); color: #fff; }
+.imran-chat-compose-mic.is-listening { color: #fff; background: #a04478; box-shadow: 0 0 0 3px rgba(220,90,150,.13); }
+.imran-chat-send { color: #fff; background: linear-gradient(140deg, #926fe3, #6f62d8); box-shadow: 0 4px 18px rgba(125,96,230,.25); }
+.imran-chat-send:hover:not(:disabled) { filter: brightness(1.1); }
+.imran-chat-compose-mic:disabled, .imran-chat-send:disabled { opacity: .35; cursor: not-allowed; }
+.imran-chat-footnote { display: flex; justify-content: center; align-items: center; gap: 6px; color: #888096; font-size: 9px; letter-spacing: .005em; margin-top: 10px; }
+.imran-chat-footnote-dot { height: 5px; width: 5px; border-radius: 50%; background: #b9a5ff; opacity: .75; }
+.imran-chat-voice-error { color: #ffc5c5; font-size: 11px; margin: 0 0 9px; line-height: 1.45; }
+@keyframes imran-chat-rise { from { opacity: 0; translate: 0 10px; } to { opacity: 1; translate: 0 0; } }
+@keyframes imran-chat-appear { from { opacity: 0; translate: 0 18px; scale: .97; } to { opacity: 1; translate: 0 0; scale: 1; } }
+@media (max-width: 640px) {
+  .imran-chat-launcher { right: 15px; bottom: max(15px, env(safe-area-inset-bottom)); padding-right: 12px; }
+  .imran-chat-launcher-icon { width: 37px; height: 37px; }
+  .imran-chat-panel { right: 0; bottom: 0; width: 100vw; height: min(82dvh, 740px); max-height: 100dvh; border-radius: 22px 22px 0 0; border-left: 0; border-right: 0; padding-bottom: env(safe-area-inset-bottom); }
+  .imran-chat-messages { padding: 17px 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .imran-chat-launcher, .imran-chat-panel, .imran-chat-remaining { animation: none !important; }
+}
+
+/* Imran AI: native pointer inside chat, custom cursor stays elsewhere. */
+html.has-custom-cursor .imran-chat-root,
+html.has-custom-cursor .imran-chat-root :is(.imran-chat-panel, .imran-chat-messages) { cursor: default !important; }
+html.has-custom-cursor .imran-chat-root :is(button, a, [role="button"], label, summary) { cursor: pointer !important; }
+html.has-custom-cursor .imran-chat-root :is(textarea, input) { cursor: text !important; }
+html.imran-chat-pointer-over .imran-portfolio-cursor { opacity: 0 !important; }
+.imran-chat-root, .imran-chat-root * { pointer-events: auto; }
+.imran-chat-panel, .imran-chat-messages { overscroll-behavior: contain; }
+.imran-chat-messages { touch-action: pan-y; scrollbar-gutter: stable; }
+.imran-chat-loading { margin: 6px 0 15px 32px; padding: 10px 13px; width: fit-content; max-width: 90%; border-radius: 12px; background: #211f30; font-size: 12px; color: #c1b4e8; }
+.imran-chat-panel :is(button,a,textarea):focus-visible { outline: 2px solid #c7b5ff; outline-offset: 2px; }

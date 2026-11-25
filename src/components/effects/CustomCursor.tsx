@@ -69,12 +69,12 @@ export function CustomCursor() {
       <div
         ref={ring}
         aria-hidden="true"
-        className="pointer-events-none fixed left-0 top-0 z-[100] -ml-4 opacity-0 data-[ready='1']:opacity-100 -mt-4 h-8 w-8 rounded-full border border-white/25 transition-[width,height,margin,background,border-color,box-shadow] duration-300 ease-out data-[hover='1']:-ml-6 data-[hover='1']:-mt-6 data-[hover='1']:h-12 data-[hover='1']:w-12 data-[hover='1']:border-white/50 data-[hover='1']:bg-white/[0.06] data-[hover='1']:shadow-[0_0_40px_oklch(0.7_0.22_265_/_0.45)]"
+        className="imran-portfolio-cursor pointer-events-none fixed left-0 top-0 z-[100] -ml-4 opacity-0 data-[ready='1']:opacity-100 -mt-4 h-8 w-8 rounded-full border border-white/25 transition-[width,height,margin,background,border-color,box-shadow] duration-300 ease-out data-[hover='1']:-ml-6 data-[hover='1']:-mt-6 data-[hover='1']:h-12 data-[hover='1']:w-12 data-[hover='1']:border-white/50 data-[hover='1']:bg-white/[0.06] data-[hover='1']:shadow-[0_0_40px_oklch(0.7_0.22_265_/_0.45)]"
       />
       <div
         ref={dot}
         aria-hidden="true"
-        className="pointer-events-none fixed left-0 top-0 z-[101] -ml-[3px] opacity-0 data-[ready='1']:opacity-100 -mt-[3px] h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_12px_oklch(0.78_0.2_265_/_0.9)]"
+        className="imran-portfolio-cursor pointer-events-none fixed left-0 top-0 z-[101] -ml-[3px] opacity-0 data-[ready='1']:opacity-100 -mt-[3px] h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_12px_oklch(0.78_0.2_265_/_0.9)]"
       />
     </>
   );

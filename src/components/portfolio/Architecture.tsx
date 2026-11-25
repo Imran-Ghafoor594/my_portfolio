@@ -12,7 +12,7 @@ export function Architecture() {
         {/* Section intro */}
         <div className="grid grid-cols-12 gap-y-8 lg:gap-x-8">
           <div className="col-span-12 lg:col-span-7">
-            <SectionLabel index="04" label="Technical Architecture" />
+            <SectionLabel index="05" label="Technical Architecture" />
             <Reveal
               as="h2"
               y={20}

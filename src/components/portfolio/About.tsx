@@ -6,7 +6,7 @@ export function About() {
   return (
     <section id="about" className="relative py-20 md:py-32 lg:py-40">
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <SectionLabel index="02" label="About" />
+        <SectionLabel index="03" label="About" />
         <div className="mt-10 grid grid-cols-12 gap-y-10 lg:gap-x-10 md:mt-16">
           <div className="col-span-12 lg:col-span-8">
             <Reveal

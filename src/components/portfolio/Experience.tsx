@@ -19,7 +19,7 @@ export function Experience() {
         {/* Section intro — engineering log framing */}
         <div className="grid grid-cols-12 items-end gap-y-8 lg:gap-x-8">
           <div className="col-span-12 lg:col-span-8">
-            <SectionLabel index="03" label="Trajectory Engineering log" />
+            <SectionLabel index="04" label="Trajectory Engineering log" />
             <Reveal
               as="h2"
               y={20}

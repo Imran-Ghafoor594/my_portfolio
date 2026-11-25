@@ -11,7 +11,7 @@ export function Footer() {
           </span>
         </div>
         <div className="font-mono-tight text-[10px] uppercase tracking-[0.24em] text-white/45">
-          © 2026 · Built with Next.js, TypeScript &amp; Framer Motion
+          © 2026 · Built with React, TanStack Start &amp; Motion
         </div>
       </div>
     </footer>
